@@ -1,0 +1,169 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Width="600" Height="400"
+        x:Class="UMI3DHub.Views.InstallSoftWindow"
+        Title="Install Software"
+		
+		Background="Transparent"
+		TransparencyLevelHint="AcrylicBlur"
+		WindowStartupLocation="CenterOwner"
+		
+		CanResize="False"
+		
+		ExtendClientAreaToDecorationsHint="True"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaTitleBarHeightHint="-1">
+	
+	<Panel>
+		<Grid RowDefinitions="31, *">
+			<!-- Title bar -->
+			<Panel Grid.Row="0">
+				<Grid ColumnDefinitions="*, 20" Margin="0, 0, 5, 0">
+					<Grid.Styles>
+						<Style Selector="Button">
+							<Setter Property="Height" Value="15"></Setter>
+							<Setter Property="Width" Value="15"></Setter>
+							<Setter Property="CornerRadius" Value="10"></Setter>
+						</Style>
+						<Style Selector="Button.close">
+							<Setter Property="Background" Value="#e74c3c"></Setter>
+						</Style>
+						<Style Selector="Button.close:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="#c0392b"></Setter>
+						</Style>
+					</Grid.Styles>
+					<Panel Grid.Row="0" IsHitTestVisible="False"></Panel>
+					<Button Grid.Column="1" Name="closePopUp" Classes="close">
+					</Button>
+				</Grid>
+			</Panel>
+			<!-- Content -->
+			<StackPanel Grid.Row="1">
+				<!-- Choose version -->
+				<Grid Margin="20, 0" RowDefinitions="30, 280, 30" IsVisible="{Binding DisplayChooseVersion}">
+					
+					<Grid.Styles>
+						<Style Selector="Button">
+							<Setter Property="Background" Value="#3498db"></Setter>
+							<Setter Property="CornerRadius" Value="20"></Setter>
+							<Setter Property="Foreground" Value="White"></Setter>
+							<Setter Property="Width" Value="100"></Setter>
+							<Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+							<Setter Property="Opacity" Value="1"></Setter>
+						</Style>
+						<Style Selector="Button:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="#2980b9"></Setter>
+						</Style>
+
+						<Style Selector="ListBox">
+							<Setter Property="CornerRadius" Value="10"></Setter>
+						</Style>
+
+						<Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+							<Setter Property="Background" Value="#3498db"></Setter>
+						</Style>
+					</Grid.Styles>
+					<Label Grid.Row="0" Foreground="White">
+						Choose your version
+					</Label>
+						<TabControl Grid.Row="1" ClipToBounds="True" Padding="0">
+							<TabControl.Styles>
+								<Style Selector="ListBox">
+									<Setter Property="Background" Value="Transparent"></Setter>
+								</Style>
+								<Style Selector="TabItem">
+									<Setter Property="FontSize" Value="14"></Setter>
+									<Setter Property="Height" Value="10"></Setter>
+								</Style>
+								<Style Selector="TabItem:selected.Border">
+									<Setter Property="BorderBrush" Value="Red"></Setter>
+								</Style>
+							</TabControl.Styles>
+
+							<TabItem>
+								<TabItem.Header>Official</TabItem.Header>
+								<Border Grid.Row="1"
+									BorderBrush="#646363"
+									BorderThickness="1"
+									CornerRadius="10">
+									<ListBox Items="{Binding OfficialReleases}"
+											 SelectedItem="{Binding SelectedOfficialVersion}">
+										<ListBox.ItemTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding Name}"/>
+												</DataTemplate>
+										</ListBox.ItemTemplate>
+									</ListBox>
+								</Border>
+							</TabItem>
+							<TabItem>
+								<TabItem.Header>Beta</TabItem.Header>
+								<Border Grid.Row="1"
+										BorderBrush="#646363"
+										BorderThickness="1"
+										CornerRadius="10">
+									<ListBox Items="{Binding BetaReleases}"
+											 SelectedItem="{Binding SelectedBetaVersion}">
+										<ListBox.ItemTemplate>
+											<DataTemplate>
+													<TextBlock Text="{Binding Name}"/>
+											</DataTemplate>
+										</ListBox.ItemTemplate>
+									</ListBox>
+								</Border>
+							</TabItem>
+						</TabControl>
+					<StackPanel Grid.Row="2">
+						<Button IsEnabled="{Binding EnableChooseVersionBtn}"
+								Command="{Binding ChooseVersionCommand}"
+								Margin="10">Install</Button>
+					</StackPanel>
+				</Grid>
+				<!-- Download release -->
+				<StackPanel IsVisible="{Binding DisplayDownload}"
+							Height="370"
+							HorizontalAlignment="Center"
+							Margin="0, 100, 0, 0">
+					<StackPanel.Styles>
+						<Style Selector="Button">
+							<Setter Property="Background" Value="#2ecc71"></Setter>
+							<Setter Property="CornerRadius" Value="20"></Setter>
+							<Setter Property="Foreground" Value="White"></Setter>
+							<Setter Property="Width" Value="100"></Setter>
+							<Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+							<Setter Property="Opacity" Value="1"></Setter>
+						</Style>
+						<Style Selector="Button:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="#27ae60"></Setter>
+						</Style>
+					</StackPanel.Styles>
+					<ProgressBar ShowProgressText="True"
+								 CornerRadius="10"
+								 VerticalAlignment="Center"
+								 Height="20"
+								 Value="{Binding DownloadProgress}">						
+					</ProgressBar>
+					<TextBlock
+						Margin="0, 15, 0, 15"
+						HorizontalAlignment="Center"
+						Text="{Binding DownloadInformation}">
+						Test
+					</TextBlock>
+					<TextBlock
+						Margin="0, 15, 0, 15"
+						HorizontalAlignment="Center"
+						Text="{Binding InstallInformation}">
+						Test
+					</TextBlock>
+					<Button HorizontalAlignment="Center"
+							Name="installSuccess"
+							IsVisible="{Binding VisibleSuccessButton}">
+						Success
+					</Button>
+				</StackPanel>
+			</StackPanel>
+		</Grid>
+	</Panel>
+</Window>

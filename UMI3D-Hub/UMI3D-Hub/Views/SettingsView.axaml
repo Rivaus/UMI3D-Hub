@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="UMI3DHub.Views.SettingsView">
+
+	<StackPanel>
+		<StackPanel.Background>
+			<SolidColorBrush Color="Black" Opacity=".3"></SolidColorBrush>
+		</StackPanel.Background>
+		<StackPanel Margin="10">
+			<Label FontWeight="ExtraBold" FontSize="20">Settings</Label>
+			<Label FontWeight="Bold" Margin="0, 5">Directories</Label>
+			<Grid ColumnDefinitions="*, 4*" RowDefinitions="40, 40">
+				<Grid.Styles>
+					<Style Selector="Button">
+						<Setter Property="CornerRadius" Value="20"></Setter>
+						<Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+						<Setter Property="Padding" Value="10, 0"></Setter>
+						<Setter Property="Height" Value="30"></Setter>
+						<Setter Property="Background" Value="Transparent"></Setter>
+						<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+					</Style>
+					<Style Selector="Label">
+						<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+						<Setter Property="Height" Value="40"></Setter>
+					</Style>
+					<Style Selector="Border">
+						<Setter Property="BorderThickness" Value="1"></Setter>
+						<Setter Property="CornerRadius" Value="20"></Setter>
+						<Setter Property="Height" Value="30"></Setter>
+					</Style>
+				</Grid.Styles>
+				<Label Grid.Row="0" Grid.Column="0">Installation directory </Label>
+				<Border Grid.Row="0" Grid.Column="1">
+					<Button Name="setInstallationDirectoryButton">Installation directory</Button>
+				</Border>
+				<Label Grid.Row="1" Grid.Column="0">Download directory </Label>
+				<Border Grid.Row="1" Grid.Column="1" >
+					<Button Name="setDownloadDirectoryButton">Download directory</Button>
+				</Border>
+			</Grid>
+		</StackPanel>
+	</StackPanel>
+</UserControl>

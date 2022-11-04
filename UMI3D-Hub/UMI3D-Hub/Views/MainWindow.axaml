@@ -1,0 +1,143 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:UMI3DHub.ViewModels"
+		xmlns:views="clr-namespace:UMI3DHub.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="UMI3DHub.Views.MainWindow"
+        Icon="/Assets/umi3d-icon.png"
+        Title="UMI3DHub"
+		
+		TransparencyLevelHint="AcrylicBlur"
+		Background="Transparent"
+		WindowStartupLocation="CenterScreen"
+		
+		ExtendClientAreaToDecorationsHint="True"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaTitleBarHeightHint="-1">
+
+	<Panel>
+		<ExperimentalAcrylicBorder IsHitTestVisible="False">
+			<ExperimentalAcrylicBorder.Material>
+				<ExperimentalAcrylicMaterial/>
+			</ExperimentalAcrylicBorder.Material>
+		</ExperimentalAcrylicBorder>
+		<Grid RowDefinitions="40, *">
+			<Grid.Styles>
+				<Style Selector="Border">
+					<Setter Property="BorderBrush" Value="#3d3c3c"/>
+				</Style>
+			</Grid.Styles>
+
+			<!-- Title bar -->
+			<Border Grid.Row="0"
+					BorderThickness="0, 0, 0 1">
+				<Grid ColumnDefinitions="56, 34, *, 20, 20, 20" Margin="5, 0, 5, 0">
+					<Grid.Styles>
+						<Style Selector="Button">
+							<Setter Property="Height" Value="15"></Setter>
+							<Setter Property="Width" Value="15"></Setter>
+							<Setter Property="CornerRadius" Value="10"></Setter>
+						</Style>
+						<Style Selector="Button.close">
+							<Setter Property="Background" Value="#e74c3c"></Setter>
+						</Style>
+						<Style Selector="Button.close:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="#c0392b"></Setter>
+						</Style>
+						<Style Selector="Button.maximise">
+							<Setter Property="Background" Value="#f1c40f"></Setter>
+						</Style>
+						<Style Selector="Button.maximise:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="#f39c12"></Setter>
+						</Style>
+						<Style Selector="Button.reduce">
+							<Setter Property="Background" Value="#3498db"></Setter>
+						</Style>
+						<Style Selector="Button.reduce:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="#2980b9"></Setter>
+						</Style>
+					</Grid.Styles>
+					<Label VerticalContentAlignment="Center"
+						   FontWeight="DemiBold"
+						   Padding="10, 0, 0, 0"
+						   Grid.Column="0">UMI3D</Label>
+					<Label VerticalContentAlignment="Center"
+						FontWeight="Light"
+						Grid.Column="1">Hub</Label>
+					<Button Grid.Column="3" Classes="reduce" Name="reduceButton">
+					</Button>
+					<Button Grid.Column="4" Classes="maximise" Name="maximiseButton">
+					</Button>
+					<Button Grid.Column="5" Name="closeButton" Classes="close">
+					</Button>
+				</Grid>
+			</Border>
+			<!-- Window -->
+			<Grid Grid.Row="1" ColumnDefinitions="200, *">
+				<Grid.Background>
+					<SolidColorBrush Color="Black" Opacity=".6"></SolidColorBrush>
+				</Grid.Background>
+				<!-- Side bar-->
+				<Border Grid.Column="0" BorderThickness="0, 0, 1, 0">
+					<StackPanel HorizontalAlignment="Left">
+						<StackPanel.Styles>
+							<Style Selector="Button">
+								<Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+								<Setter Property="FontWeight" Value="ExtraLight"></Setter>
+								<Setter Property="Width" Value="100"></Setter>
+								<Setter Property="CornerRadius" Value="20"></Setter>
+								<Setter Property="Background" Value="Transparent"></Setter>
+							</Style>
+							<Style Selector="Button:pointerover /template/ ContentPresenter">
+								<Setter Property="Background" Value="Transparent"></Setter>
+							</Style>
+							<Style Selector="Button:pressed /template/ ContentPresenter">
+								<Setter Property="Background" Value="Gray"></Setter>
+							</Style>
+							<Style Selector="Border.sideBtn">
+								<Setter Property="Margin" Value="10, 0, 0, 0"></Setter>
+								<Setter Property="BorderThickness" Value="1"></Setter>
+								<Setter Property="BorderBrush" Value="Transparent"></Setter>
+								<Setter Property="Width" Value="100"></Setter>
+								<Setter Property="CornerRadius" Value="20"></Setter>
+								<Setter Property="Margin" Value="0, 2"></Setter>
+							</Style>
+							<Style Selector="Border.sideBtn:pointerover">
+								<Setter Property="BorderBrush" Value="White"></Setter>
+							</Style>
+						</StackPanel.Styles>
+						<StackPanel Margin="10">
+							<Label Foreground="Gray">Applications</Label>
+							<Border Classes="sideBtn">
+								<Button Command="{Binding DisplaySoftwareCmd}"
+									CommandParameter="0">Desktop</Button>
+							</Border>
+							<Border Classes="sideBtn">
+								<Button	Command="{Binding DisplaySoftwareCmd}"
+									CommandParameter="1">OpenVR</Button>
+							</Border>
+						</StackPanel>
+						<StackPanel Margin="10, 0, 10, 10">
+							<Label Foreground="Gray">Other</Label>
+							<Border Classes="sideBtn">
+								<Button Command="{Binding DisplaySettingsCmd}">
+									Settings
+								</Button>
+							</Border>
+						</StackPanel>
+					</StackPanel>
+				</Border>
+
+				<!-- Content -->
+				<Panel Grid.Column="1" IsVisible="{Binding DisplaySoftwares}>">
+					<views:SoftwaresView DataContext="{Binding SoftVm}"/>
+				</Panel>
+				<Panel Grid.Column="1" IsVisible="{Binding DisplaySettings}">
+					<views:SettingsView DataContext="{Binding SettingsVm}"/>
+				</Panel>
+			</Grid>
+		</Grid>
+	</Panel>
+</Window>
