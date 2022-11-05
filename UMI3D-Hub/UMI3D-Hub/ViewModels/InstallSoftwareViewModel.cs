@@ -281,12 +281,12 @@ namespace UMI3DHub.ViewModels
 
             try
             {
-                string programFiles = SoftwareManager.Instance.InstallationDirectory;
+                string programFiles = SoftwareManager.Instance.InstallationDirectory + "\\" + softwareCategory.RepoName + "\\";
 
-                if (!Directory.Exists(@programFiles + "/UMI3D-Desktop-Browser"))
-                    Directory.CreateDirectory(@programFiles + "/UMI3D-Desktop-Browser");
+                if (!Directory.Exists(programFiles))
+                    Directory.CreateDirectory(programFiles);
 
-                string installFolder = @programFiles + "/UMI3D-Desktop-Browser/" + version;
+                string installFolder = @programFiles + version;
 
                 if (!Directory.Exists(installFolder))
                     Directory.CreateDirectory(installFolder);

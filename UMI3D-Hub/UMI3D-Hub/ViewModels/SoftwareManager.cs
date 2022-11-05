@@ -99,7 +99,10 @@ namespace UMI3DHub.ViewModels
                 Name = "Open VR"
             });
 
-            installationDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            installationDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\UMI3DHUB";
+            if (!Directory.Exists(installationDirectory))
+                Directory.CreateDirectory(installationDirectory);
+
             downloadDirectory = Path.GetTempPath();
 
             LoadData();
